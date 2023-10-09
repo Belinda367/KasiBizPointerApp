@@ -1,38 +1,107 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { LinearGradient } from 'expo-linear-gradient'
-import { useNavigation } from '@react-navigation/native';
-import { theme } from '../theme';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
+import { theme } from "../theme";
 
 export default function LandingScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+
   return (
-    <View className="flex-1 flex justify-end">
+    <View style={styles.container}>
+      {/* Logo */}
+      <Image
+        source={require("../../assets/images/logo1.png")}
+        style={styles.logo}
+      />
       {/* background image */}
       <Image
-        source={require('../../assets/images/welcome.png')}
-
-        className="h-full w-full absolute"
+        source={require("../../assets/images/welcome.png")}
+        style={styles.backgroundImage}
       />
       {/* content & gradient */}
-      <View className="p-5 pb-10 space-y-8">
+      <View style={styles.content}>
         <LinearGradient
-            colors={['transparent', 'rgba(3,105,161,0.8)']}
-            style={{width: wp(100), height: hp(60)}}
-            start={{x: 0.5, y: 0}}
-            end={{x: 0.5, y: 1}}
-            className="absolute bottom-0"
+          colors={["transparent", "rgba(3,105,161,0.8)"]}
+          style={styles.gradient}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
         />
-        <View className="space-y-3">
-            <Text className="text-white font-bold text-5xl" style={{fontSize: wp(10)}}>Explore Kasi Support Kasi</Text>
-            <Text className="text-neutral-200 font-medium" style={{fontSize: wp(4)}}>
-            </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Explore Kasi! Support Kasi!</Text>
+          <Text style={styles.subtitle}></Text>
         </View>
-        <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={{backgroundColor: theme.bg(1)}} className="mx-auto p-3 px-12 rounded-full">
-            <Text className="text-white font-bold" style={{fontSize: wp(5.5)}}>Get Started</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LoginScreen")}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  logo: {
+    width: 220,
+    height: 200,
+    marginTop: 100,
+    marginLeft: 0,
+    resizeMode: "contain",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    top: 100,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  gradient: {
+    width: wp(100),
+    height: hp(60),
+    position: "absolute",
+    bottom: 0,
+  },
+  textContainer: {
+    marginTop: hp(20),
+    alignItems: "center",
+  },
+  title: {
+    fontSize: wp(10),
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: hp(2),
+  },
+  subtitle: {
+    fontSize: wp(4),
+    color: "white",
+    marginBottom: hp(4),
+  },
+  button: {
+    backgroundColor: "#098BF5",
+    paddingVertical: hp(1),
+    paddingHorizontal: wp(10),
+    borderRadius: wp(10),
+    marginBottom: 90,
+  },
+  buttonText: {
+    fontSize: wp(5.5),
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
